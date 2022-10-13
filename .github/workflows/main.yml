@@ -6,7 +6,7 @@ env:
   AZURE_REGION: eastus2
   RESOURCE_GROUP_NAME: Ignite2022rlr
   
-  AZURE_WEBAPP_NAME: rlr01    # set this to your application's name
+  AZURE_WEBAPP_NAME: wapp-rlr01    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x'           # set this to the dot net version to use
   IGNITE2022MX_ARTIFACT: ignite2022mx-app
@@ -51,9 +51,11 @@ jobs:
         template: ./IaC/deploy-appservice.bicep
         # parameters: appName=<Type a unique name for yor webapp>
         parameters: ./IaC/parameters-appservice.json
+        
   ci:
     runs-on: windows-latest
-
+    if: ${{ success() }}
+    needs: appservice-bicep-template-deploy
     steps:
       # Checkout the repo
       - uses: actions/checkout@main
