@@ -1,0 +1,23 @@
+name: Deploy Noc rlr
+
+on: workflow_dispatch
+
+env:
+  AZURE_REGION: eastus2
+  RESOURCE_GROUP_NAME: Ignite2022rlr
+
+jobs:
+
+  create_azure_rg:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Create Azure RG
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az group create --location ${{ env.AZURE_REGION }} --name ${{ env.RESOURCE_GROUP_NAME }}
