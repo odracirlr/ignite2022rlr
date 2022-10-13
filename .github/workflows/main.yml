@@ -24,7 +24,8 @@ jobs:
 
   appservice-bicep-template-deploy:
     runs-on: ubuntu-latest
-
+    if:  ${{create_azure_rg  }}
+  
     steps:
 
       # Checkout code
