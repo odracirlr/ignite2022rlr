@@ -24,6 +24,7 @@ jobs:
 
   appservice-bicep-template-deploy:
     runs-on: ubuntu-latest
+
     steps:
 
       # Checkout code
